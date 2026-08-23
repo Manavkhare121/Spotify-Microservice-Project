@@ -1,0 +1,100 @@
+:root {
+  /* Color roles */
+  --color-ink-strong: #17221b;
+  --color-ink: #405047;
+  --color-ink-muted: #718078;
+  --color-surface: #f7faf7;
+  --color-surface-raised: #ffffff;
+  --color-surface-subtle: #edf3ee;
+  --color-line: #d7e1d9;
+  --color-brand: #1f9d68;
+  --color-brand-strong: #147a4f;
+  --color-brand-soft: #e1f4e9;
+  --color-focus: #e4a11b;
+  --color-danger: #c44f4f;
+  --color-danger-soft: #fbe9e8;
+  --color-success: #237e53;
+  --color-success-soft: #e2f4e9;
+
+  /* Legacy aliases used by existing styles */
+  --text: var(--color-ink);
+  --text-h: var(--color-ink-strong);
+  --bg: var(--color-surface);
+  --border: var(--color-line);
+  --code-bg: var(--color-surface-subtle);
+  --accent: var(--color-brand);
+  --accent-bg: var(--color-brand-soft);
+  --accent-border: var(--color-brand);
+  --social-bg: var(--color-surface-subtle);
+
+  /* Typography */
+  --font-body: 'Avenir Next', 'Segoe UI', sans-serif;
+  --font-heading: Georgia, 'Times New Roman', serif;
+  --font-mono: 'Cascadia Code', Consolas, monospace;
+  --sans: var(--font-body);
+  --heading: var(--font-heading);
+  --mono: var(--font-mono);
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Shape and elevation */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 2px 8px rgba(23, 34, 27, 0.08);
+  --shadow-md: 0 12px 28px rgba(23, 34, 27, 0.12);
+  --shadow: var(--shadow-md);
+
+  /* Layout and motion */
+  --content-width: 1126px;
+  --control-height: 44px;
+  --transition-fast: 160ms ease;
+  --transition-base: 240ms ease;
+
+  color: var(--text);
+  background: var(--bg);
+  color-scheme: light;
+  font: 18px/145% var(--font-body);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-ink-strong: #edf5ef;
+    --color-ink: #b7c8bd;
+    --color-ink-muted: #8fa397;
+    --color-surface: #142019;
+    --color-surface-raised: #1c2b22;
+    --color-surface-subtle: #24362a;
+    --color-line: #38503f;
+    --color-brand: #51c98b;
+    --color-brand-strong: #7cdda8;
+    --color-brand-soft: #1e3c2c;
+    --color-focus: #f2bc4d;
+    --color-danger: #ef8b87;
+    --color-danger-soft: #4a2929;
+    --color-success: #7cdda8;
+    --color-success-soft: #1e3c2c;
+    color-scheme: dark;
+  }
+}
