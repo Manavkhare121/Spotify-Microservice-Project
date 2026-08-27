@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs"
 import config from "../config/config.js";
 import { publishToQueue } from "../broker/rabbit.js";
 export async function register(req,res) {
-    const {email,fullName:{firstName,lastName},password}=req.body;
+    const {email,fullName:{firstName,lastName},password,role="user"}=req.body;
     const isUserAlreadyExists=await userModel.findOne({email});
     if(isUserAlreadyExists){
         return res.status(400).json({message:"User Already exists"});
@@ -17,11 +17,13 @@ export async function register(req,res) {
             firstName,
             lastName
         }
+        ,role
     })
 
     const token=jwt.sign({
         id:user._id,
-        role:user.role
+        role:user.role,
+        fullName:user.fullName
     },config.JWT_SECRET,{expiresIn:"2d"});
 
     await publishToQueue("user_created",{
@@ -55,7 +57,8 @@ export async function googleAuthCallback(req,res){
     if((isUserAlreadyExists)){
         const token=jwt.sign({
             id:isUserAlreadyExists._id,
-            role:isUserAlreadyExists.role
+            role:isUserAlreadyExists.role,
+            fullName:isUserAlreadyExists.fullName
         },config.JWT_SECRET,{expiresIn:"2d"});
         res.cookie("token",token);
         return res.redirect('http://localhost:5173');
@@ -79,7 +82,8 @@ export async function googleAuthCallback(req,res){
 
     const token=jwt.sign({
         id:newuser._id,
-        role:newuser.role
+        role:newuser.role,
+        fullName:newuser.fullName
     },config.JWT_SECRET,{expiresIn:"2d"});
 
     res.cookie("token",token);
@@ -101,6 +105,7 @@ export async function login(req,res) {
     const token=jwt.sign({
         id:user._id,
         role:user.role,
+        fullName:user.fullName
 
     },config.JWT_SECRET,{expiresIn:"2d"});
 

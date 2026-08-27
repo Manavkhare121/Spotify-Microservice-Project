@@ -11,14 +11,14 @@ const musicSchema=new mongoose.Schema({
     artistId:{
         type:mongoose.Schema.Types.ObjectId
     },
-    musicUrl:{
+    musicKey:{
         type:String,
         required:true
     },
-    coverImageUrl:{
+    coverImageKey:{
         type:String,
         required:true
     }
 },{timestamps:true})
-const music=mongoose.model('music',musicSchema);
-export default music;
+const musicModel=mongoose.model('music',musicSchema);
+export default musicModel;
