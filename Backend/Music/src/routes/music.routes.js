@@ -2,8 +2,8 @@ import express from "express";
 
 import multer from "multer";
 
-import { uploadMusic } from "../controller/music.controller.js";
-import { authArtistMiddleware } from "../middleware/auth.middleware.js";
+import { uploadMusic,getArtistMusics ,createPlaylist, getplaylists,getAllMusics,getPlaylistById, getMusicById} from "../controller/music.controller.js";
+import { authArtistMiddleware,authUserMiddleware } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ const upload = multer({
 
 });
 
-
+router.get('/',authUserMiddleware,getAllMusics)
 router.post(
 
     "/upload",authArtistMiddleware,
@@ -37,5 +37,17 @@ router.post(
 
 );
 
-
+router.get(
+    "/my-musics",
+    authArtistMiddleware,
+    getArtistMusics
+);
 export default router;
+
+router.post('/playlist',authArtistMiddleware,createPlaylist)
+
+router.get('/playlists',authUserMiddleware,getplaylists)
+
+router.get('/playlist/:id',authUserMiddleware,getPlaylistById)
+
+router.get('/get-details/:id',authUserMiddleware,getMusicById)
