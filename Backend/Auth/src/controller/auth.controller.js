@@ -8,6 +8,7 @@ export async function register(req,res) {
     const isUserAlreadyExists=await userModel.findOne({email});
     if(isUserAlreadyExists){
         return res.status(400).json({message:"User Already exists"});
+        
     }
     const hash=await bcrypt.hash(password,10);
     const user=await userModel.create({
@@ -61,6 +62,9 @@ export async function googleAuthCallback(req,res){
             fullName:isUserAlreadyExists.fullName
         },config.JWT_SECRET,{expiresIn:"2d"});
         res.cookie("token",token);
+        if(user.role==='artist'){
+        return res.redirect('http://localhost:5173/artist/dashboard')
+    }
         return res.redirect('http://localhost:5173');
     }
 
@@ -87,6 +91,7 @@ export async function googleAuthCallback(req,res){
     },config.JWT_SECRET,{expiresIn:"2d"});
 
     res.cookie("token",token);
+    
 
     res.redirect('http://localhost:5173');
     
@@ -120,3 +125,4 @@ export async function login(req,res) {
         }
     })
 }
+

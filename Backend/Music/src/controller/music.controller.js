@@ -98,7 +98,9 @@ export async function createPlaylist(req, res) {
 
 export async function getplaylists(req,res){
     try{
-        const playlists=await playlistModel.find({artistId:req.user.id})
+        const playlists=await playlistModel
+          .find({artistId:req.user.id})
+          .populate('musics')
         return res.status(200).json({playlists});
     }catch(err){
         console.log(err);
@@ -171,4 +173,17 @@ export async function getMusicById(req, res) {
       message: "Internal server error",
     });
   }
+}
+
+
+export default async function getArtistPlaylists(req,res) {
+    try{
+        const playlists=await playlistModel
+          .find({artistId:req.user.id})
+          .populate("musics");
+        return res.status(200).json({playlists})
+    }catch(err){
+        console.log(err);
+        return res.status(500).json({message:'Internal server error'});
+    }
 }
